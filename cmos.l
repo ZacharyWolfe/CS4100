@@ -30,7 +30,7 @@
 %}
 
 INCLUDES    "#include"[ \t]*"<"[a-zA-Z0-9./]*">"
-INCLUDE_H     "#include"[ \t]*\"[a-zA-Z0-9./]*\"      
+INCLUDE_H   "#include"[ \t]*\"[a-zA-Z0-9./]*\"      
 ML_COMMENT  "/*"([^*]|\*+[^*/])*\*+"/"
 COMMENT     "//".*
 VAR_TYPE    "int"|"double"|"float"|"char"|"void"
@@ -66,17 +66,23 @@ int yywrap(){
 }
 
 int main() {
-  std::fstream scannerOutput("scanner_out.txt", std::ios::out);
-  std::fstream visualOutput("visual_output.txt", std::ios::out);
+    std::ofstream scannerOutput;
+    std::ofstream visualOutput;
+    scannerOutput.open("scanner_out.txt");
+    visualOutput.open("visual_output.txt");
 
-  int token = 0;
+    if (!scannerOutput || !visualOutput){
+        return -1;
+    }
 
-  // Read tokens from input file and write to output file
-  while ((token = yylex())) {
-    scannerOutput << std::setw(3) << std::setfill('0') << token;
-    visualOutput << std::setw(3) << std::setfill('0') << token << " /* " << yytext << " */\n";
-  }
+    int token = 0;
 
-  scannerOutput.close();
-  visualOutput.close();
+    // Read tokens from input file and write to output file
+    while ((token = yylex())) {
+        scannerOutput << std::setw(3) << token;
+        visualOutput << std::setw(3) << token << " /* " << yytext << " */\n";
+    }
+
+    scannerOutput.close();
+    visualOutput.close();
 }

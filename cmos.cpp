@@ -17,6 +17,7 @@ struct cFile{
 
 int main (){
     const int FINGERPRINT_WIDTH = 4;
+    const int WINDOW_SIZE = FINGERPRINT_WIDTH;
     ifstream file;
     vector<cFile> programs;
     string programName = "";
@@ -41,14 +42,29 @@ int main (){
     file.close();
 
     for (size_t i = 0; i < programs.size(); i++){
-        vector<string> kmers;
+        vector<size_t> kmers;
+        vector<size_t> windows;
+        hash<string> hash_fn;
+        
         cout << "program " << i << endl;
         for (size_t j = 0; j < programs[i].fileToToken.second.size() - FINGERPRINT_WIDTH; j++){
             string kmer = programs[i].fileToToken.second.substr(j, FINGERPRINT_WIDTH);
-            kmers.push_back(kmer);
-            cout << "kmer: " << kmer << endl;
+            kmers.push_back(hash_fn(kmer));
         }
+        size_t localsum = 0;
+        for (size_t j = 0; j < kmers.size() - WINDOW_SIZE; j++){
+            for (size_t k = 0; k < WINDOW_SIZE; k++){
+                localsum += kmers[j + k];
+            }
+            windows.push_back(localsum);
+            localsum = 0;
+        }
+        auto minHash = min(windows.begin(), windows.end());
+        cout << "minHash: " << *minHash << endl;
+        // programs[i].hashedFingerprints.push_back(minHash);
     }
+
+
 
     return 0;
 }
