@@ -79,7 +79,7 @@ int main() {
 
     // Read tokens from input file and write to output file
     while ((token = yylex())) {
-        scannerOutput << std::setw(3) << token;
+        scannerOutput << token;
         visualOutput << std::setw(3) << token << " /* " << yytext << " */\n";
     }
 

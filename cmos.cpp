@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -22,6 +24,7 @@ int main (){
     vector<cFile> programs;
     string programName = "";
     string tokenizedProgram = "";
+    string plagiarismLine = "";
 
     file.open("./tokens.txt");
 
@@ -30,6 +33,9 @@ int main (){
         std::cerr << "Unable to open file datafile.txt";
         exit(1);
     }
+
+    file >> plagiarismLine;
+    file >> plagiarismLine;
 
     while (!file.eof()){
         file >> programName;
@@ -43,28 +49,52 @@ int main (){
 
     for (size_t i = 0; i < programs.size(); i++){
         vector<size_t> kmers;
-        vector<size_t> windows;
         hash<string> hash_fn;
         
-        cout << "program " << i << endl;
-        for (size_t j = 0; j < programs[i].fileToToken.second.size() - FINGERPRINT_WIDTH; j++){
-            string kmer = programs[i].fileToToken.second.substr(j, FINGERPRINT_WIDTH);
-            kmers.push_back(hash_fn(kmer));
-        }
-        size_t localsum = 0;
-        for (size_t j = 0; j < kmers.size() - WINDOW_SIZE; j++){
-            for (size_t k = 0; k < WINDOW_SIZE; k++){
-                localsum += kmers[j + k];
+        if (programs[i].fileToToken.second.size() >= FINGERPRINT_WIDTH){
+            for (size_t j = 0; j < programs[i].fileToToken.second.length() - FINGERPRINT_WIDTH; j++){
+                string kmer = programs[i].fileToToken.second.substr(j, FINGERPRINT_WIDTH);
+                kmers.push_back(hash_fn(kmer));
             }
-            windows.push_back(localsum);
-            localsum = 0;
         }
-        auto minHash = min(windows.begin(), windows.end());
-        cout << "minHash: " << *minHash << endl;
-        // programs[i].hashedFingerprints.push_back(minHash);
+        for (size_t j = 0; j <= kmers.size() - WINDOW_SIZE; j++){
+            size_t minHash = numeric_limits<size_t>::max();
+            for (size_t k = 0; k < WINDOW_SIZE; k++){
+                if (kmers[j + k] < minHash){
+                    minHash = kmers[j + k];
+                }
+            }
+            programs[i].hashedFingerprints.push_back(minHash);
+        }
     }
 
+    vector<programSimilarity> similarities;
 
+    // calculate the similarity between each pair of programs
+    for (size_t i = 0; i < programs.size(); ++i) {
+        for (size_t j = i + 1; j < programs.size(); ++j) {
+            size_t common = 0;
+            for (size_t k = 0; k < programs[i].hashedFingerprints.size(); ++k) {
+                for (size_t l = 0; l < programs[j].hashedFingerprints.size(); ++l) {
+                    if (programs[i].hashedFingerprints[k] == programs[j].hashedFingerprints[l]) {
+                        common++;
+                    }
+                }
+            }
+
+            cout << "program " << i << ", " << "program " << j << " " << common << endl;
+            float similarity = (float)common / (programs[i].hashedFingerprints.size() + programs[j].hashedFingerprints.size());
+            similarities.push_back({programs[i].fileToToken.first, programs[j].fileToToken.first, similarity});
+        }
+    }
+
+    sort(similarities.begin(), similarities.end(), [](const programSimilarity &a, const programSimilarity &b) {
+        return a.similarityScore > b.similarityScore;
+    });
+
+    for (size_t i = 0; i < similarities.size(); ++i) {
+        cout << similarities[i].cFile1 << " " << similarities[i].cFile2 << " " << similarities[i].similarityScore << endl;
+    }
 
     return 0;
 }
