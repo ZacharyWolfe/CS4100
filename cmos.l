@@ -1,36 +1,36 @@
 %{
-    #include <iostream>
     #include <fstream>
+    #include <iomanip>
 
-    #define TK_VAR_TYPE     001
+    #define TK_VAR_TYPE     1
 
-    #define TK_FOR_LOOP     002
-    #define TK_WHILE_LOOP   003
+    #define TK_FOR_LOOP     2
+    #define TK_WHILE_LOOP   3
 
-    #define TK_OP_PAREN     004
-    #define TK_CL_PAREN     005
+    #define TK_OP_PAREN     4
+    #define TK_CL_PAREN     5
 
-    #define TK_OP_BRACK     006
-    #define TK_CL_BRACK     007
+    #define TK_OP_BRACK     6
+    #define TK_CL_BRACK     7
 
-    #define TK_OP_CURLY     010
-    #define TK_CL_CURLY     011
+    #define TK_OP_CURLY     8
+    #define TK_CL_CURLY     9
 
-    #define TK_IF_STATE     012
-    #define TK_ELSE_STATE   013
+    #define TK_IF_STATE     10
+    #define TK_ELSE_STATE   11
     
-    #define TK_RETURN       014
-    #define TK_KEYWORD      015
-    #define TK_INCLUDE      016
-    #define TK_INCLUDES     017
+    #define TK_RETURN       12
+    #define TK_KEYWORD      13
+    #define TK_INCLUDE_H    14
+    #define TK_INCLUDES     15
 
-    #define TK_DO_LOOP      020
+    #define TK_DO_LOOP      16
 
-    #define TK_IDENTIFIER   021
+    #define TK_IDENTIFIER   17
 %}
 
 INCLUDES    "#include"[ \t]*"<"[a-zA-Z0-9./]*">"
-INCLUDE     "#include"[ \t]*\"[a-zA-Z0-9./]*\"      
+INCLUDE_H     "#include"[ \t]*\"[a-zA-Z0-9./]*\"      
 ML_COMMENT  "/*"([^*]|\*+[^*/])*\*+"/"
 COMMENT     "//".*
 VAR_TYPE    "int"|"double"|"float"|"char"|"void"
@@ -42,9 +42,8 @@ VAR_NAME    [a-zA-Z_][a-zA-Z0-9]*
 {COMMENT}           {   /*ignore any comments*/ }
 {ML_COMMENT}        {   /*ignore any comments*/ }
 {VAR_TYPE}          {   return TK_VAR_TYPE;     }
-[\*&]?{VAR_NAME}    {   return TK_IDENTIFIER;   } /* references and de-references*/
 {INCLUDES}          {   return TK_INCLUDES;     }
-{INCLUDE}           {   return TK_INCLUDE;      }
+{INCLUDE_H}           {   return TK_INCLUDE_H;      }
 "for"               {   return TK_FOR_LOOP;     }
 "while"             {   return TK_WHILE_LOOP;   }
 "do"                {   return TK_DO_LOOP;      }
@@ -55,10 +54,10 @@ VAR_NAME    [a-zA-Z_][a-zA-Z0-9]*
 "["                 {   return TK_OP_BRACK;     }
 "]"                 {   return TK_CL_BRACK;     }
 "if"                {   return TK_IF_STATE;     }
-"return"            {   return TK_RETURN;       }
 "else"              {   return TK_ELSE_STATE;   }
+"return"            {   return TK_RETURN;       }
+[\*&]?{VAR_NAME}    {   return TK_IDENTIFIER;   } /* references and de-references*/
 .                   {   /*ignore random chars*/ }
-
 
 %%
 
@@ -66,17 +65,18 @@ int yywrap(){
     return 1;
 }
 
-int main(){
-    std::ofstream file;
-    file.open("tokens.txt");
+int main() {
+  std::fstream scannerOutput("scanner_out.txt", std::ios::out);
+  std::fstream visualOutput("visual_output.txt", std::ios::out);
 
-    if (!file)
-        return 0;
-    
-    int token = 0;
-    while (token = yylex()){
-        file << token;
-    }
-    file.close();
-    return 0;
+  int token = 0;
+
+  // Read tokens from input file and write to output file
+  while ((token = yylex())) {
+    scannerOutput << std::setw(3) << std::setfill('0') << token;
+    visualOutput << std::setw(3) << std::setfill('0') << token << " /* " << yytext << " */\n";
+  }
+
+  scannerOutput.close();
+  visualOutput.close();
 }

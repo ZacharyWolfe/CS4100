@@ -1,13 +1,10 @@
 CXX=g++
-CPPFLAGS=-Wall -Werror -std=c++11
+CPPFLAGS=-std=c++11
 
-TARGETS=cmos
-
-compile: cmos
+compile: cmos.l
 	flex cmos.l
-	$(CXX) $(CPPFLAGS) lex.yy.c -o cmos
-
-
+	$(CXX) $(CPPFLAGS) lex.yy.c -o lexer
+	$(CXX) $(CPPFLAGS) cmos.cpp -o cmos
 
 clean:
-	rm -f ${TARGETS} *.o
+	rm -f *.o cmos lex.yy.c PlagiarismReport.txt
