@@ -1,92 +1,150 @@
- 15 /* #include <stdio.h> */
+ 14 /* #include <stdio.h> */
   1 /* void */
- 17 /* get */
- 17 /* _data */
+ 16 /* get */
+ 16 /* _data */
   4 /* ( */
   1 /* int */
- 17 /* *num */
+ 16 /* *num */
   5 /* ) */
+ 16 /* *Pre */
+ 16 /* num */
+ 16 /* contains */
+ 16 /* address */
+ 16 /* of */
+ 16 /* memory */
+ 16 /* cell */
+ 16 /* where */
+ 16 /* the */
+ 16 /* results */
+ 16 /* are */
+ 16 /* Post */
+ 16 /* function */
+ 16 /* stores */
+ 16 /* the */
+ 16 /* result */
+ 16 /* in */
+ 16 /* cell */
+ 16 /* that */
+ 16 /* is */
+ 16 /* pointed */
+ 16 /* to */
   1 /* void */
- 17 /* dispenseBills */
+ 16 /* dispenseBills */
   4 /* ( */
   1 /* int */
- 17 /* total */
+ 16 /* total */
   1 /* int */
- 17 /* *fifty */
+ 16 /* *fifty */
   1 /* int */
- 17 /* *twenty */
+ 16 /* *twenty */
   1 /* int */
- 17 /* *ten */
+ 16 /* *ten */
   5 /* ) */
+ 16 /* *Pre */
+ 16 /* total */
+ 16 /* is */
+ 16 /* defined */
+ 16 /* where */
+ 16 /* fifty */
+ 16 /* twenty */
+ 16 /* and */
+ 16 /* ten */
+ 16 /* and */
+ 16 /* address */
+ 16 /* location */
+ 16 /* is */
+ 16 /* Post */
+ 16 /* Results */
+ 16 /* are */
+ 16 /* stored */
+ 16 /* in */
+ 16 /* the */
+ 16 /* locations */
+ 16 /* that */
+ 16 /* are */
+ 16 /* pointed */
+ 16 /* to */
+ 16 /* by */
+ 16 /* fifty */
   1 /* void */
- 17 /* printBills */
+ 16 /* printBills */
   4 /* ( */
   1 /* int */
- 17 /* tot */
+ 16 /* tot */
   1 /* int */
- 17 /* fifty */
+ 16 /* fifty */
   1 /* int */
- 17 /* twenty */
+ 16 /* twenty */
   1 /* int */
- 17 /* ten */
+ 16 /* ten */
   5 /* ) */
+ 16 /* Prints */
+ 16 /* result */
+ 16 /* the */
+ 16 /* amount */
+ 16 /* number */
+ 16 /* of */
+ 16 /* fifties */
+ 16 /* twenties */
+ 16 /* and */
+ 16 /* tens */
   1 /* int */
- 17 /* main */
+ 16 /* main */
   4 /* ( */
   1 /* void */
   5 /* ) */
   8 /* { */
   1 /* int */
- 17 /* amount */
- 17 /* fifties */
- 17 /* twenties */
- 17 /* tens */
+ 16 /* amount */
+ 16 /* fifties */
+ 16 /* twenties */
+ 16 /* tens */
   1 /* char */
- 17 /* ans */
- 17 /* Y */
+ 16 /* ans */
+ 16 /* Y */
   3 /* while */
   4 /* ( */
- 17 /* ans */
- 17 /* Y */
- 17 /* ans */
- 17 /* y */
+ 16 /* ans */
+ 16 /* Y */
+ 16 /* ans */
+ 16 /* y */
   5 /* ) */
   8 /* { */
- 17 /* get */
- 17 /* _data */
+ 16 /* get */
+ 16 /* _data */
   4 /* ( */
- 17 /* &amount */
+ 16 /* &amount */
   5 /* ) */
- 17 /* dispenseBills */
+ 16 /* dispenseBills */
   4 /* ( */
- 17 /* amount */
- 17 /* &fifties */
- 17 /* &twenties */
- 17 /* &tens */
+ 16 /* amount */
+ 16 /* &fifties */
+ 16 /* &twenties */
+ 16 /* &tens */
   5 /* ) */
- 17 /* printBills */
+ 16 /* printBills */
   4 /* ( */
- 17 /* amount */
- 17 /* fifties */
- 17 /* twenties */
- 17 /* tens */
+ 16 /* amount */
+ 16 /* fifties */
+ 16 /* twenties */
+ 16 /* tens */
   5 /* ) */
- 17 /* printf */
+ 16 /* printf */
   4 /* ( */
- 17 /* Do */
- 17 /* you */
- 17 /* want */
- 17 /* another */
- 17 /* transaction */
+ 16 /* Do */
+ 16 /* you */
+ 16 /* want */
+ 16 /* another */
+ 16 /* transaction */
   4 /* ( */
- 17 /* y */
- 17 /* n */
+ 16 /* y */
+ 16 /* n */
   5 /* ) */
   5 /* ) */
- 17 /* scanf */
+ 16 /* scanf */
   4 /* ( */
- 17 /* c */
- 17 /* &ans */
+ 16 /* c */
+ 16 /* &ans */
   5 /* ) */
   9 /* } */
  12 /* return */
@@ -94,143 +152,143 @@
   5 /* ) */
   9 /* } */
   1 /* void */
- 17 /* get */
- 17 /* _data */
+ 16 /* get */
+ 16 /* _data */
   4 /* ( */
   1 /* int */
- 17 /* *num */
+ 16 /* *num */
   5 /* ) */
   8 /* { */
   1 /* int */
- 17 /* val */
- 17 /* printf */
+ 16 /* val */
+ 16 /* printf */
   4 /* ( */
- 17 /* Enter */
- 17 /* how */
- 17 /* much */
- 17 /* cash */
- 16 /* do */
- 17 /* you */
- 17 /* need */
+ 16 /* Enter */
+ 16 /* how */
+ 16 /* much */
+ 16 /* cash */
+ 15 /* do */
+ 16 /* you */
+ 16 /* need */
   5 /* ) */
- 17 /* scanf */
+ 16 /* scanf */
   4 /* ( */
- 17 /* d */
- 17 /* &val */
+ 16 /* d */
+ 16 /* &val */
   5 /* ) */
   3 /* while */
   4 /* ( */
- 17 /* val */
+ 16 /* val */
   5 /* ) */
   8 /* { */
- 17 /* printf */
+ 16 /* printf */
   4 /* ( */
- 17 /* This */
- 17 /* machine */
- 17 /* dispenses */
- 17 /* ONLY */
- 17 /* n */
+ 16 /* This */
+ 16 /* machine */
+ 16 /* dispenses */
+ 16 /* ONLY */
+ 16 /* n */
   5 /* ) */
- 17 /* printf */
+ 16 /* printf */
   4 /* ( */
- 17 /* Please */
- 17 /* enter */
- 17 /* again */
+ 16 /* Please */
+ 16 /* enter */
+ 16 /* again */
   5 /* ) */
- 17 /* scanf */
+ 16 /* scanf */
   4 /* ( */
- 17 /* d */
- 17 /* &val */
+ 16 /* d */
+ 16 /* &val */
   5 /* ) */
   9 /* } */
- 17 /* *num */
- 17 /* val */
-  9 /* } */
-  1 /* void */
- 17 /* dispenseBills */
-  4 /* ( */
-  1 /* int */
- 17 /* num */
-  1 /* int */
- 17 /* *fifty */
-  1 /* int */
- 17 /* *twenty */
-  1 /* int */
- 17 /* *ten */
-  5 /* ) */
-  8 /* { */
-  1 /* int */
- 17 /* five */
- 17 /* two */
- 17 /* one */
- 17 /* five */
- 17 /* num */
- 17 /* num */
- 17 /* num */
-  4 /* ( */
- 17 /* five */
-  5 /* ) */
- 17 /* two */
- 17 /* num */
- 17 /* num */
- 17 /* num */
-  4 /* ( */
- 17 /* two */
-  5 /* ) */
- 17 /* one */
- 17 /* num */
- 17 /* *fifty */
- 17 /* five */
- 17 /* *twenty */
- 17 /* two */
- 17 /* *ten */
- 17 /* one */
+ 16 /* *num */
+ 16 /* val */
   9 /* } */
   1 /* void */
- 17 /* printBills */
+ 16 /* dispenseBills */
   4 /* ( */
   1 /* int */
- 17 /* num */
+ 16 /* num */
   1 /* int */
- 17 /* fifty */
+ 16 /* *fifty */
   1 /* int */
- 17 /* twenty */
+ 16 /* *twenty */
   1 /* int */
- 17 /* ten */
+ 16 /* *ten */
   5 /* ) */
   8 /* { */
- 17 /* printf */
+  1 /* int */
+ 16 /* five */
+ 16 /* two */
+ 16 /* one */
+ 16 /* five */
+ 16 /* num */
+ 16 /* num */
+ 16 /* num */
   4 /* ( */
- 17 /* The */
- 17 /* amount */
- 17 /* you */
- 17 /* are */
- 17 /* withdrawing */
- 17 /* d */
- 17 /* n */
- 17 /* num */
+ 16 /* five */
   5 /* ) */
- 17 /* printf */
+ 16 /* two */
+ 16 /* num */
+ 16 /* num */
+ 16 /* num */
   4 /* ( */
- 17 /* Take */
- 17 /* your */
- 17 /* Cash */
- 17 /* as */
- 17 /* Bills */
- 17 /* n */
+ 16 /* two */
   5 /* ) */
- 17 /* printf */
+ 16 /* one */
+ 16 /* num */
+ 16 /* *fifty */
+ 16 /* five */
+ 16 /* *twenty */
+ 16 /* two */
+ 16 /* *ten */
+ 16 /* one */
+  9 /* } */
+  1 /* void */
+ 16 /* printBills */
   4 /* ( */
- 17 /* d */
- 17 /* fifties */
- 17 /* d */
- 17 /* twenties */
- 17 /* and */
- 17 /* d */
- 17 /* tens */
- 17 /* n */
- 17 /* fifty */
- 17 /* twenty */
- 17 /* ten */
+  1 /* int */
+ 16 /* num */
+  1 /* int */
+ 16 /* fifty */
+  1 /* int */
+ 16 /* twenty */
+  1 /* int */
+ 16 /* ten */
+  5 /* ) */
+  8 /* { */
+ 16 /* printf */
+  4 /* ( */
+ 16 /* The */
+ 16 /* amount */
+ 16 /* you */
+ 16 /* are */
+ 16 /* withdrawing */
+ 16 /* d */
+ 16 /* n */
+ 16 /* num */
+  5 /* ) */
+ 16 /* printf */
+  4 /* ( */
+ 16 /* Take */
+ 16 /* your */
+ 16 /* Cash */
+ 16 /* as */
+ 16 /* Bills */
+ 16 /* n */
+  5 /* ) */
+ 16 /* printf */
+  4 /* ( */
+ 16 /* d */
+ 16 /* fifties */
+ 16 /* d */
+ 16 /* twenties */
+ 16 /* and */
+ 16 /* d */
+ 16 /* tens */
+ 16 /* n */
+ 16 /* fifty */
+ 16 /* twenty */
+ 16 /* ten */
   5 /* ) */
   9 /* } */

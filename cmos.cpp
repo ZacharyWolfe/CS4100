@@ -81,8 +81,7 @@ int main (){
                     }
                 }
             }
-
-            cout << "program " << i << ", " << "program " << j << " " << common << endl;
+            
             float similarity = (float)common / (programs[i].hashedFingerprints.size() + programs[j].hashedFingerprints.size());
             similarities.push_back({programs[i].fileToToken.first, programs[j].fileToToken.first, similarity});
         }

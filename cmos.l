@@ -30,11 +30,11 @@
 %}
 
 INCLUDES    "#include"[ \t]*"<"[a-zA-Z0-9./]*">"
-INCLUDE_H   "#include"[ \t]*\"[a-zA-Z0-9./]*\"      
-ML_COMMENT  "/*"([^*]|\*+[^*/])*\*+"/"
+INCLUDE_H   "#include"[ \t]*"\""[a-zA-Z0-9./]*"\""      
+ML_COMMENT  "/*"([^*]|\*+[^*/])*\*+"*/"
 COMMENT     "//".*
 VAR_TYPE    "int"|"double"|"float"|"char"|"void"
-VAR_NAME    [a-zA-Z_][a-zA-Z0-9]*
+VAR_NAME    [_a-zA-Z_][a-zA-Z0-9]*
 
 %%
 
@@ -43,7 +43,7 @@ VAR_NAME    [a-zA-Z_][a-zA-Z0-9]*
 {ML_COMMENT}        {   /*ignore any comments*/ }
 {VAR_TYPE}          {   return TK_VAR_TYPE;     }
 {INCLUDES}          {   return TK_INCLUDES;     }
-{INCLUDE_H}           {   return TK_INCLUDE_H;      }
+{INCLUDE_H}         {   return TK_INCLUDE_H;      }
 "for"               {   return TK_FOR_LOOP;     }
 "while"             {   return TK_WHILE_LOOP;   }
 "do"                {   return TK_DO_LOOP;      }
