@@ -1,16 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <limits>
 
 using namespace std;
 
-struct programSimilarity{
-    string cFile1;
-    string cFile2;
-    float similarityScore;
-};
 
 struct cFile{
     pair<string, string> fileToToken;
@@ -22,6 +18,7 @@ int main (){
     const int WINDOW_SIZE = FINGERPRINT_WIDTH;
     ifstream file;
     vector<cFile> programs;
+    map<string, float> filesAndSimilarities;
     string programName = "";
     string tokenizedProgram = "";
     string plagiarismLine = "";
@@ -68,8 +65,6 @@ int main (){
         }
     }
 
-    vector<programSimilarity> similarities;
-
     // calculate the similarity between each pair of programs
     for (size_t i = 0; i < programs.size(); ++i) {
         for (size_t j = i + 1; j < programs.size(); ++j) {
@@ -81,18 +76,19 @@ int main (){
                     }
                 }
             }
-            
+
             float similarity = (float)common / (programs[i].hashedFingerprints.size() + programs[j].hashedFingerprints.size());
-            similarities.push_back({programs[i].fileToToken.first, programs[j].fileToToken.first, similarity});
+            filesAndSimilarities.insert(make_pair(programs[i].fileToToken.first + " " + programs[j].fileToToken.first, similarity));
         }
     }
 
-    sort(similarities.begin(), similarities.end(), [](const programSimilarity &a, const programSimilarity &b) {
-        return a.similarityScore > b.similarityScore;
+    vector<pair<string, float>> filesAndSimilaritiesVector(filesAndSimilarities.begin(), filesAndSimilarities.end());
+    sort(filesAndSimilaritiesVector.begin(), filesAndSimilaritiesVector.end(), [](const pair<string, float> &a, const pair<string, float> &b) {
+        return a.second > b.second;
     });
 
-    for (size_t i = 0; i < similarities.size(); ++i) {
-        cout << similarities[i].cFile1 << " " << similarities[i].cFile2 << " " << similarities[i].similarityScore << endl;
+    for (size_t i = 0; i < filesAndSimilaritiesVector.size(); ++i) {
+        cout << filesAndSimilaritiesVector[i].first << " " << filesAndSimilaritiesVector[i].second << endl;
     }
 
     return 0;
